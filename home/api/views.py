@@ -29,3 +29,17 @@ def add_employee_api_view(request):
     if serializer.is_valid():
         serializer.save()
     return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+@api_view(["GET"])
+def update_employee_api_view(request, id):
+    """
+    :param request:
+    :return:
+    """
+    queryset = Employee.objects.get(pk=id)
+    serializer = EmployeeSerializer(queryset, many=True)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
