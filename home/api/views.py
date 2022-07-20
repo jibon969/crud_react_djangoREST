@@ -17,3 +17,15 @@ def employee_list_api_view(request):
         return Response(serializer.data, status=status.HTTP_200_OK)
     except Employee.DoesNotExist:
         return Response({"There is no Employee post exits in database"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(["POST"])
+def add_employee_api_view(request):
+    """
+    :param request:
+    :return:
+    """
+    serializer = EmployeeSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data, status=status.HTTP_200_OK)
