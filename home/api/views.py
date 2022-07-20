@@ -31,7 +31,7 @@ def add_employee_api_view(request):
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-@api_view(["GET"])
+@api_view(["POST"])
 def update_employee_api_view(request, id):
     """
     :param request:
@@ -43,3 +43,10 @@ def update_employee_api_view(request, id):
         serializer.save()
     return Response(serializer.data)
 
+
+@api_view(['DELETE'])
+def delete_employee_api_view(request, pk):
+    task = Employee.objects.get(id=pk)
+    task.delete()
+    # return Response(status=status.HTTP_204_NO_CONTENT)
+    return Response("Employee successfully delete")
